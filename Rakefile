@@ -21,6 +21,11 @@ Jeweler::Tasks.new do |gem|
 end
 Jeweler::RubygemsDotOrgTasks.new
 
+require 'rspec'
+require 'rspec/core/rake_task'
+desc "Run all examples"
+task RSpec::Core::RakeTask.new('spec') 
+
 #require 'rake/testtask'
 #Rake::TestTask.new(:test) do |test|
 #  test.libs << 'lib' << 'test'
