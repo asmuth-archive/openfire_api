@@ -26,6 +26,31 @@ describe "User Service" do
 		@user_service.send(:submit_request, :type => :add, :username => "user", :password => "pw").should == true
 	end
 	
+	it "should add users" do
+		FakeWeb.register_uri(:get, "http://fakehost.int:2323/plugins/userService/userservice?type=add&username=user&password=pw&secret=bigsecret", :body => "<result>ok</result>")
+		@user_service.add_user!(:username => "user", :password => "pw").should == true
+	end
+	
+	it "should delete users" do
+		FakeWeb.register_uri(:get, "http://fakehost.int:2323/plugins/userService/userservice?type=delete&username=user&secret=bigsecret", :body => "<result>ok</result>")
+		@user_service.delete_user!(:username => "user").should == true
+	end
+	
+	it "should update users" do
+		FakeWeb.register_uri(:get, "http://fakehost.int:2323/plugins/userService/userservice?type=update&username=user&password=pw&name=horst&secret=bigsecret", :body => "<result>ok</result>")
+		@user_service.update_user!(:username => "user", :password => "pw", :name => "horst").should == true
+	end
+	
+	it "should lock users" do
+		FakeWeb.register_uri(:get, "http://fakehost.int:2323/plugins/userService/userservice?type=disable&username=user&secret=bigsecret", :body => "<result>ok</result>")
+		@user_service.lock_user!(:username => "user").should == true
+	end
+	
+	it "should unlock users" do
+		FakeWeb.register_uri(:get, "http://fakehost.int:2323/plugins/userService/userservice?type=enable&username=user&secret=bigsecret", :body => "<result>ok</result>")
+		@user_service.unlock_user!(:username => "user").should == true
+	end	
+	
 	it "should handle the error: user service disabled" do
 		FakeWeb.register_uri(:get, "http://fakehost.int:2323/plugins/userService/userservice?username=user1&type=disable&secret=bigsecret", :body => "<error>UserServiceDisabled</error>")
 		lambda{ @user_service.lock_user!(:username => "user1") }.should raise_error(OpenfireApi::UserService::UserServiceDisabledException)
@@ -50,6 +75,5 @@ describe "User Service" do
 		FakeWeb.register_uri(:get, "http://fakehost.int:2323/plugins/userService/userservice?username=user1&type=disable&secret=bigsecret", :body => "<error>UserAlreadyExistsException</error>")
 		lambda{ @user_service.lock_user!(:username => "user1") }.should raise_error(OpenfireApi::UserService::UserAlreadyExistsException)
 	end
-
 
 end
