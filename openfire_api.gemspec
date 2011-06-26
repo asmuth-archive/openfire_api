@@ -16,10 +16,11 @@ Gem::Specification.new do |s|
     "Gemfile",
     "Gemfile.lock",
     "Rakefile",
-    "Readme",
     "VERSION",
     "lib/openfire_api.rb",
     "lib/openfire_api/user_service.rb",
+    "openfire_api.gemspec",
+    "readme.rdoc",
     "spec/spec_helper.rb",
     "spec/user_service_spec.rb"
   ]
