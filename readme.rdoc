@@ -6,22 +6,22 @@ create a new userservice object
   
 register new user
   
-	api.add_user!(:username => "user", :password => "pass")
-	api.add_user!(:username => "user", :password => "pass", :name => ..., :email => ..., :groups => ...)
+  api.add_user!(:username => "user", :password => "pass")
+  api.add_user!(:username => "user", :password => "pass", :name => ..., :email => ..., :groups => ...)
 
 update existing user
   
   api.update_user!(:username => "user", :password => "pass")
-	api.update_user!(:username => "user", :password => "pass", :name => ..., :email => ..., :groups => ...)
+  api.update_user!(:username => "user", :password => "pass", :name => ..., :email => ..., :groups => ...)
 
 delete user
 
-	api.delete_user!(:username => "user")
+  api.delete_user!(:username => "user")
 	
 lock user
 
-	api.lock_user!(:username => "user")
+  api.lock_user!(:username => "user")
 
 unlock user
 
-	api.unlock_user!(:username => "user")
+  api.unlock_user!(:username => "user")
