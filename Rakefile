@@ -17,7 +17,6 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{ruby client for the openfire xmpp-server user_service api}
   gem.email = "paul@23linesofcode.com"
   gem.authors = ["Paul Asmuth"]
-  gem.add_runtime_dependency 'nokogiri', '> 0.1'
 end
 Jeweler::RubygemsDotOrgTasks.new
 

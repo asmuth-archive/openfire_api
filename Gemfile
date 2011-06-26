@@ -1,7 +1,5 @@
 source "http://rubygems.org"
 
-gem 'nokogiri'
-
 group :development do
   gem "rspec", ">= 2.6.0"
   gem "shoulda", ">= 0"

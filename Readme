@@ -2,10 +2,7 @@
 
 create a new userservice object
 
-  api = OpenfireApi::UserService.new(
-    :host => "http://localhost:9090/", 
-    :secret => "BIGSECRET"
-  )
+  api = OpenfireApi::UserService.new(:url => "http://localhost:9090/", :secret => "BIGSECRET")
   
 register new user
   

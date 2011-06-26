@@ -8,7 +8,6 @@ GEM
       bundler (~> 1.0.0)
       git (>= 1.2.5)
       rake
-    nokogiri (1.4.6)
     rake (0.9.2)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
@@ -27,6 +26,5 @@ DEPENDENCIES
   bundler (~> 1.0.0)
   fakeweb
   jeweler (~> 1.5.2)
-  nokogiri
   rspec (>= 2.6.0)
   shoulda

@@ -1,6 +1,7 @@
 class OpenfireApi::UserService
 	
 	@@api_path = "plugins/userService/userservice"
+	@@api_exceptions = %w(UserServiceDisabled RequestNotAuthorised IllegalArgumentException UserNotFoundException UserAlreadyExistsException)
 	
 	class HTTPException < StandardError; end
 	class InvalidResponseException < StandardError; end
@@ -18,19 +19,19 @@ class OpenfireApi::UserService
 		submit_request(opts.merge(:type => :add))
 	end
 	
-	def delete_user!
+	def delete_user!(opts)
 		submit_request(opts.merge(:type => :delete))
 	end
 	
-	def update_user!
+	def update_user!(opts)
 		submit_request(opts.merge(:type => :update))
 	end
 	
-	def lock_user!
+	def lock_user!(opts)
 		submit_request(opts.merge(:type => :disable))
 	end
 	
-	def unlock_user!
+	def unlock_user!(opts)
 		submit_request(opts.merge(:type => :enable))
 	end
 	
@@ -52,31 +53,24 @@ private
 	end
 	
 	def submit_request(params)
-    uri = build_query_uri
-    http = Net::HTTP.new(uri.host, uri.port)
-    resp, data = http.get("#{uri.path}?#{build_query_params(params)}", nil)
-    return data
-	rescue
-	  raise HTTPException
+   	data = submit_http_request(build_query_uri, build_query_params(params))
+   	parse_response(data)
 	end
 	
-#	def parse_response(xml)
-#    begin
-#      doc = Nokogiri::XML(xml)
-#      error_code = doc.xpath('//Response/ErrorCode').attribute('value').to_s.to_i
-#      entries_as_hash = Hash.new
-#      doc.xpath('//Response//DataRecord//Entry').each do |entry|
-#        key = entry.xpath('Key').attribute('value').to_s
-#        value = entry.xpath('Value').attribute('value').to_s
-#        entries_as_hash[key] = value
-#      end
-#    rescue
-#      raise PaybackClient::InvalidXMLException
-#    else
-#      check_error_code!(error_code)
-#      return entries_as_hash
-#    end
-#  end
-#	
+	def submit_http_request(uri, params)
+    http = Net::HTTP.new(uri.host, uri.port)
+ 	  resp, data = http.get("#{uri.path}?#{params}")
+ 	  return data
+	rescue Exception => e
+		raise HTTPException, e.to_s
+	end
+	
+	def parse_response(data)
+		error = data.match(/<error>(.*)<\/error>/)
+		eval "raise #{error[1].gsub('Exception', '')}Exception" if error && @@api_exceptions.include?(error[1]) # HACK !!! ;)
+		raise InvalidResponseException unless data.match(/<result>ok<\/result>/)
+   	return true
+  end
+	
 	
 end	
