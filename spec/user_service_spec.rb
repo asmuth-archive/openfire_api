@@ -13,12 +13,20 @@ describe "User Service" do
   
   it "should build query params" do
     params = @user_service.send(:build_query_params, :type => :add, :username => "user", :password => "pw")
-    params.should == "type=add&username=user&password=pw&secret=bigsecret"
+    params.should include("type=add")
+    params.should include("username=user")
+    params.should include("password=pw")
+    params.should include("secret=bigsecret")    
   end
   
   it "should build queries" do
     url = @user_service.send(:build_query, :type => :add, :username => "user", :password => "pw")
-    url.should == "http://fakehost.int:2323/plugins/userService/userservice?type=add&username=user&password=pw&secret=bigsecret"
+    url.should include("http://fakehost.int:2323/plugins/userService/userservice?")
+    url.should include("type=add")
+    url.should include("type=add")
+    url.should include("username=user")
+    url.should include("password=pw")
+    url.should include("secret=bigsecret")  
   end
   
   it "should submit requests" do
@@ -77,3 +85,4 @@ describe "User Service" do
   end
 
 end
+
