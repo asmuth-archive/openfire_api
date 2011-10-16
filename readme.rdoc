@@ -1,6 +1,20 @@
+= openfire_api
+
+ruby client for the openfire xmpp-server user_service api
+
 {<img src="https://secure.travis-ci.org/paulasmuth/openfire_api.png" />}[http://travis-ci.org/paulasmuth/openfire_api]
 
-= Usage
+
+== Installation
+
+In your Gemfile
+  gem "mtgox-ruby", :git => "git://github.com/paulasmuth/openfire_api.git"
+	
+or
+  gem install git://github.com/paulasmuth/openfire_api.git
+
+
+== Usage
 
 create a new userservice object
 
