@@ -1,3 +1,5 @@
+{<img src="https://secure.travis-ci.org/paulasmuth/openfire_api.png" />}[http://travis-ci.org/paulasmuth/openfire_api]
+
 = Usage
 
 create a new userservice object
