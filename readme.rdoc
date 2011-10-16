@@ -1,6 +1,6 @@
 = openfire_api
 
-ruby client for the openfire xmpp-server user_service api
+a ruby client for openfire's user_service api
 
 {<img src="https://secure.travis-ci.org/paulasmuth/openfire_api.png" />}[http://travis-ci.org/paulasmuth/openfire_api]
 
